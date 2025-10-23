@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"No build step required for backend\"",
     "seed": "node seeder/seedData.js",
     "dev": "nodemon index.js"
   },
