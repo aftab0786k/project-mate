@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/Index';
-import Home from './pages/Home';   
+  
 import Signup from './pages/Signup';
 
 import Index from './pages/Index';
@@ -25,7 +25,7 @@ const App: React.FC = () => {
             {/* Home page route */}
             <Route element={<Layout />}>
              <Route path="/" element={<Index />} />
-              <Route path="/home" element={<Home/>} />
+       
               <Route path="/projectpage" element={<ProjectsPage/>} />
               <Route path="/projects/:projectId" element={<ProjectDetailsPage />} />
              
