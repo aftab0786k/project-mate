@@ -1,4 +1,4 @@
-import  React from "react";
+import React from "react";
 
 // Simple cn utility function to merge class names
 const cn = (...classes: (string | undefined | boolean)[]) => {
@@ -36,11 +36,18 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   asChild?: boolean;
 }
 
+// Add this type to handle any React element props
+type ElementProps = {
+  className?: string;
+  [key: string]: any;
+};
+
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = "default", size = "default", asChild = false, ...props }, ref) => {
     // If asChild is true and children is a single element, clone it with merged props
     if (asChild && React.Children.count(props.children) === 1) {
-      const child = React.Children.only(props.children) as React.ReactElement;
+      const child = React.Children.only(props.children) as React.ReactElement<ElementProps>;
+
       return React.cloneElement(child, {
         className: cn(
           buttonVariants.base,
@@ -51,7 +58,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         ),
         ref,
         ...props,
-      });
+      } as ElementProps);
     }
 
     // Regular button
