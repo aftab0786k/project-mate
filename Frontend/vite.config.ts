@@ -7,7 +7,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:3001', // Backend URL
+        // target: 'http://localhost:3001', // Backend URL
+        target: 'https://project-mate-3.onrender.com', // Backend URL
         changeOrigin: true,
         secure: false,
         rewrite: (path) => path.replace(/^\/api/, '/api') // Keep /api path
