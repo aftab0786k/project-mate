@@ -9,13 +9,27 @@ interface TaskFormProps {
   onSuccess?: () => void;
 }
 
+interface TaskFormState {
+  title: string;
+  description: string;
+  status: 'todo' | 'in-progress' | 'done';
+  dueDate: string; // always keep as string for input value
+}
+
+const formatToInputDate = (d?: string | Date): string => {
+  if (!d) return new Date().toISOString().split('T')[0];
+  const date = typeof d === 'string' ? new Date(d) : d;
+  if (Number.isNaN(date.getTime())) return new Date().toISOString().split('T')[0];
+  return date.toISOString().split('T')[0];
+};
+
 const TaskForm: React.FC<TaskFormProps> = ({ projectId, existingTask, onSuccess }) => {
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState({
-    title: existingTask?.title || '',
-    description: existingTask?.description || '',
-    status: existingTask?.status || 'todo',
-    dueDate: existingTask?.dueDate || new Date().toISOString().split('T')[0],
+  const [formData, setFormData] = useState<TaskFormState>({
+    title: existingTask?.title ?? '',
+    description: existingTask?.description ?? '',
+    status: (existingTask?.status as TaskFormState['status']) ?? 'todo',
+    dueDate: formatToInputDate(existingTask?.dueDate),
   });
   const [isStatusOpen, setIsStatusOpen] = useState(false);
 
@@ -48,10 +62,8 @@ const TaskForm: React.FC<TaskFormProps> = ({ projectId, existingTask, onSuccess 
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value } as TaskFormState));
   };
 
   const handleStatusChange = (status: 'todo' | 'in-progress' | 'done') => {
