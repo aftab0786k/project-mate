@@ -1,7 +1,11 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import type { Task, TaskState } from "../tasks/Task";
+import Api from "../ApiEnd";
 
-const API_URL = "http://localhost:3001/api/task";
+// Use the TASK_URL from ApiEnd.ts  
+const API_URL = Api.TASK_URL;
+
+// const API_URL = "http://localhost:3001/api/task";
 
 // helper to read token (adjust if you store token elsewhere)
 const getAuthHeaders = () => {

@@ -1,7 +1,9 @@
 import { createSlice, createAsyncThunk, type PayloadAction } from "@reduxjs/toolkit";
 import type { Project } from "../project/Project";
-
-const API_URL = "http://localhost:3001/api/projects";
+import Api from "../ApiEnd";
+// Use the PROJECT_URL from ApiEnd.ts  
+const API_URL = Api.PROJECT_URL;
+// const API_URL = "http://localhost:3001/api/projects";
 
 export interface ProjectState {
   projects: Project[];

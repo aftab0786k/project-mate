@@ -1,6 +1,7 @@
 import React, { useState, type ChangeEvent, type FocusEvent, type FormEvent } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
+import Api from "../ApiEnd";
 
 // Define interfaces for our form data and errors
 interface FormData {
@@ -88,7 +89,7 @@ const SignupPage: React.FC = () => {
 
     setLoading(true);
     try {
-      const res = await axios.post("/api/signup", {
+      const res = await axios.post(Api.SIGNUP_URL, {
         username: formData.username,
         email: formData.email,
         password: formData.password,
